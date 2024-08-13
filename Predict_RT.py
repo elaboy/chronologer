@@ -2,13 +2,28 @@ import sys, time, argparse, time, concurrent
 import numpy as np, pandas as pd
 import torch
 
-import chronologer.src.constants as constants
-from chronologer.src.local_io import read_rt_database
-from chronologer.src.tensorize import codedseq_to_array
-from chronologer.src.chronologer.model import initialize_chronologer_model
-from chronologer.src.kde_alignment import KDE_align
-from chronologer.src.utils import timer
+import src.constants as constants
+from src.local_io import read_rt_database
+from src.tensorize import codedseq_to_array
+from src.chronologer.model import initialize_chronologer_model
+from src.kde_alignment import KDE_align
+from src.utils import timer
+from src.local_io import read_in_memory_rt_database
+from typing import List
 
+chronologer = initialize_chronologer_model(constants.default_chronologer_model_file)
+
+def predict_HI(full_sequences:List[str], batch_size=2048) -> pd.DataFrame:
+    df = read_in_memory_rt_database(pd.DataFrame(columns="PeptideModSeq", data=full_sequences), chronologer_compatible_only=True, )
+    seq_array = np.asarray( [ codedseq_to_array( p ) for p in df.CodedPeptideSeq ],
+                              'int64', )
+    pred_batches = [ ] 
+    for i in range(0, len(seq_array), batch_size):
+        peptide_tensor = torch.Tensor(seq_array[ i : i+batch_size, ] ).to( torch.int64 )
+        predictions = chronologer(peptide_tensor).cpu().T[0].detach().numpy()
+        pred_batches.append(predictions)
+    df[ 'Pred_HI' ] = np.concatenate(pred_batches)
+    return df
 
 def parse_args(args):
     parser = argparse.ArgumentParser( usage = 'Predict_RT.py [optional arguments] input.tsv output.tsv',

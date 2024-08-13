@@ -5,8 +5,8 @@ import numpy as np
 import torch
 from torch.utils.data import TensorDataset
 
-import chronologer.src.constants as constants
-from chronologer.src.custom import return_custom_modifications
+import src.constants as constants
+from src.custom import return_custom_modifications
 
 residues = [ # Primary 20 amino acids            
              'A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 

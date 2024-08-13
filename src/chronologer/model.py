@@ -2,10 +2,10 @@
 import torch
 import torch.nn as nn
 
-import chronologer.src.constants as constants
-from chronologer.src.tensorize import residues
-from chronologer.src.core_layers import resnet_block
-from chronologer.src.chronologer.settings import hyperparameters, training_parameters
+import src.constants as constants
+from src.tensorize import residues
+from src.core_layers import resnet_block
+from src.chronologer.settings import hyperparameters, training_parameters
 
 
 class chronologer_model( nn.Module ):

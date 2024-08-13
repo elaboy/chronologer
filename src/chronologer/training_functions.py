@@ -8,14 +8,14 @@ os.environ['KMP_DUPLICATE_LIB_OK']='True'
 import pandas as pd
 
 
-import chronologer.src.constants as constants 
-from chronologer.src.local_io import read_rt_database
-from chronologer.src.chronologer.settings import training_parameters
-from chronologer.src.tensorize import hi_db_to_tensors
-from chronologer.src.chronologer.model import initialize_chronologer_model
-from chronologer.src.loss_functions import RT_masked_negLogL, LogL_Loss
-from chronologer.src.training_loop import train_model
-from chronologer.src.utils import timer
+import src.constants as constants 
+from src.local_io import read_rt_database
+from src.chronologer.settings import training_parameters
+from src.tensorize import hi_db_to_tensors
+from src.chronologer.model import initialize_chronologer_model
+from src.loss_functions import RT_masked_negLogL, LogL_Loss
+from src.training_loop import train_model
+from src.utils import timer
 
 
 def rt_to_tensor_database( data_files, test_frac, random_seed, ):

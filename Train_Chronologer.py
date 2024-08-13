@@ -5,8 +5,8 @@ from datetime import datetime
 import numpy as np
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
-import chronologer.src.constants as constants 
-from chronologer.src.chronologer.training_functions import train_chronologer 
+import src.constants as constants 
+from src.chronologer.training_functions import train_chronologer 
 
 def parse_args(args):
     src_dir = os.path.dirname(os.path.abspath(__file__))

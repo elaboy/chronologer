@@ -6,7 +6,7 @@ import itertools
 import numpy as np
 from scipy.interpolate import interp1d
 
-from chronologer.src.peptide import modseq_to_seq
+from src.peptide import modseq_to_seq
 
 
 class cosine_gaussian:
