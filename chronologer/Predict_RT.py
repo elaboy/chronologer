@@ -86,7 +86,3 @@ def main():
     
     print( 'Prediction of retention times completed (' + timer(start_time) + ')' )
     return 0
-
-if __name__ == "__main__":
-    main()
-    sys.exit()
